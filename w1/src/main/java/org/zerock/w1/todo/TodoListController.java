@@ -14,6 +14,8 @@ public class TodoListController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("/todo/list");
 
+        System.out.println("DB로부터 목록을 꺼내어 list.jsp에 전달");
+
         /* 이 코드를 아래처럼 축약했다.
         RequestDispatcher rd = req.getRequestDispatcher("todoList.jsp");
         rd.forward(req, resp);
