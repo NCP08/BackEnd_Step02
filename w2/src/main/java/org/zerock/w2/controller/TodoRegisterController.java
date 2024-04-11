@@ -26,6 +26,7 @@ public class TodoRegisterController extends HttpServlet {
         log.info("/todo/register GET .............");
 
         /* ------------------로그인 정보 유무에 따른 register.jsp 이동 여부 결정 --- start */
+        /*
         HttpSession session = req.getSession();
 
         // 새로 접속했다면
@@ -41,7 +42,7 @@ public class TodoRegisterController extends HttpServlet {
             resp.sendRedirect("/login");
             return;
         }
-
+        */
         /* 로그인 정보 유무에 따른 register.jsp 이동 여부 결정 --- end --------------------- */
 
         req.getRequestDispatcher("/WEB-INF/todo/register.jsp").forward(req, resp);
