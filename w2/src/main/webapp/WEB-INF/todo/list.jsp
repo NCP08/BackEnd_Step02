@@ -12,8 +12,10 @@
     <title>Todo List</title>
 </head>
 <body>
+    <h2>${appName}</h2>
     <h2>${loginInfo}</h2>
     <h3>${loginInfo.mname}</h3>
+
     <ul>
         <c:forEach items="${dtoList}" var="dto">
             <li>
