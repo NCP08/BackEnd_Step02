@@ -10,11 +10,15 @@
     </Appenders>
 
     <loggers>
-        <logger name="org.springframework" level="DEBUG" additivity="false">
+        <logger name="org.springframework" level="INFO" additivity="false">
             <appender-ref ref="console" />
         </logger>
 
-        <logger name="com.zaxxer" level="DEBUG" additivity="false">
+        <logger name="org.mybatis" level="INFO" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+        <logger name="com.zaxxer" level="INFO" additivity="false">
             <appender-ref ref="console"/>
         </logger>
 
