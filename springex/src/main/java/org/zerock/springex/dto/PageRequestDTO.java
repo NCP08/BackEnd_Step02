@@ -29,6 +29,8 @@ public class PageRequestDTO {
     @Max(value = 100)
     @Positive
     private int size = 10;          // 페이지 당 보여줄 정보의 크기
+
+    private String link;
     
     // 해당 페이지 이전에 몇개를 건너띄어야 하는지 계산하는 메서드
     public int getSkip(){
