@@ -34,4 +34,19 @@ public class PageRequestDTO {
     public int getSkip(){
         return (page-1) * 10;
     }
+
+    /* /todo/list에서 /todo/read, /todo/modify등으로 이동했다가
+    다시 /todo/list로 돌아올 때 현재 내 페이지로 돌아오도록 하기 위해
+    이 링크정보를 붙여서 url이동을 하는 용도로 사용한다.
+    * */
+    public String getLink(){
+        if(link == null){
+            StringBuilder builder = new StringBuilder();
+            builder.append("page=" + this.page);
+            builder.append("&size=" + this.size);
+            link = builder.toString();
+        }
+
+        return link;
+    }
 }
