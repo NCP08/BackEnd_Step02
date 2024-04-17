@@ -69,8 +69,10 @@ public class TodoMapperTests {
                 .page(1)
                 .size(10)
                 .types(new String[]{"t", "w"})
-                .keyword("스프링")
-                .finished(true)
+                .keyword("니다")
+                //.finished(true)
+                .from(LocalDate.of(2024, 04, 17))
+                .to(LocalDate.of(2024, 04, 18))
                 .build();
 
         List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);

@@ -58,8 +58,10 @@
                                 <input type="checkbox" name="finished" ${pageRequestDTO.finished?"checked":""} >완료여부
                             </div>
                             <div class="mb-3">
-<%--                                <input type="checkbox" name="types" value="t" ${pageRequestDTO.checkType("t")?"checked":""}>제목--%>
-<%--                                <input type="checkbox" name="types" value="w"  ${pageRequestDTO.checkType("w")?"checked":""}>작성자--%>
+                                <input type="checkbox" name="types" value="t" ${pageRequestDTO.checkType("t")?"checked":""}>제목
+                                <input type="checkbox" name="types" value="w"  ${pageRequestDTO.checkType("w")?"checked":""}>작성자
+<%--                                    <input type="checkbox" name="types" value="t">제목--%>
+<%--                                    <input type="checkbox" name="types" value="w">작성자--%>
                                 <input type="text"  name="keyword" class="form-control" value ='<c:out value="${pageRequestDTO.keyword}"/>' >
                             </div>
                             <div class="input-group mb-3 dueDateDiv">
@@ -176,7 +178,7 @@
                                 const target = e.target    // 이벤트 발생시킨 주체(자식)
 
                                 // <a></a>  태그에서 발생한 것이 아니라면 무시
-                                if(target.tagName !== 'A') {
+                                if (target.tagName !== 'A') {
                                     return
                                 }
                                 // 해당 자식에서 data-num이라는 사용자 속성값을 추출
@@ -184,12 +186,16 @@
 
                                 const formObj = document.querySelector("form")
 
+                                /*
+                                // 기존 form에 존재하는 parameter(name=value)에 추가로
+                                // page 변수를 더해서 서버로 전송
+                                // /todo/list" "get"요청으로 주소로 전송
+                                 */
                                 formObj.innerHTML += `<input type='hidden' name='page' value='\${num}'>`
 
                                 formObj.submit();
 
-                            },false)
-
+                            }, false)
 
 
                             document.querySelector(".clearBtn").addEventListener("click", function (e){
