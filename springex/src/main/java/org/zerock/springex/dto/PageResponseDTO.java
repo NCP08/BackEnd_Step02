@@ -1,6 +1,8 @@
 package org.zerock.springex.dto;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 /* jsp에서 bootstrap의 pagination 컴포넌트를 사용하는데
   그 때 이 dto를 받아서 pagination을 구성한다.
@@ -14,7 +16,12 @@ dtoList만 할일 페이지 업무일 때는 TodoDTO
           쇼핑 구매 업무일 때는 OrderDTO 등의 list가 필요하므로
           Geriric으로 만들면 1번 만들어놓고 재사용이 가능하다.
 * */
-public class PageResponseDTO <E>{
+
+import java.util.List;
+
+@Getter
+@ToString
+public class PageResponseDTO<E>{
 
     private int page;           // 현재 페이지
     private int size;           // 현재 보여야 할 row의 크기
@@ -46,7 +53,7 @@ public class PageResponseDTO <E>{
         this.start = this.end - 9;
         
         // pagination의 전체 범위 가장 끝 번호
-        this.last = (int)(Math.ceil((this.total/(double)size)));
+        int last = (int)(Math.ceil((this.total/(double)size)));
 
         /* 위에서 end계산은 10단위로 무조건 맞춘 것이기 때문에
         실제 마지막 페이지 번호와 확인해서
@@ -61,7 +68,7 @@ public class PageResponseDTO <E>{
         end를 15로 바꾸고
         pagination도 11 12 13 14 15 로 변경되도록 하기 위해 이렇게 처리한다.
         * */
-        this.end = this.end > this.last ? this.last : this.end;
+        this.end = this.end > last ? last : this.end;
 
         // 1~10 pagination이 아니고, 그 이상이라는 의미이므로 이전 페이지가 존재
         this.prev = this.start > 1;
