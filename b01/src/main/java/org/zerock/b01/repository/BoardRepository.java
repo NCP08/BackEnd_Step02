@@ -21,12 +21,17 @@ private BoardRepository boardRepository;
 * */
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    // MariaDB에 적합한 sql
+    // 1) 쿼리메서드
+    // https://spring.io/projects/spring-data-jpa
+
+    // 2) MySQL/MariaDB에 적합한 sql - NativeQuery
     @Query(value="select now()", nativeQuery = true)
     String getTime();
 
-    // JPA에서 정한 표준 SQL, JPA에서 사용하는 Hibernate에서 NativeQuery로 자동 변환해서
+    // 3) JPQL - JPA에서 정한 표준 SQL, JPA에서 사용하는 Hibernate에서 NativeQuery로 자동 변환해서
     // DBMS에 전달한다.
     @Query("select b from Board b where b.title like concat('%',:keyword,'%')")
     Page<Board> findKeyword(String keyword, Pageable pageable);
+    
+    // 4) QueryDsl - 프로그래밍(객체QueryDsl - 프로그래밍(객체, 메서드 호출) -> JPQL -> Native Query -> DBMS로 전달
 }
