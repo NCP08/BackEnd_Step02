@@ -68,6 +68,7 @@ public class Reply extends BaseEntity{
         그러므로 자식 테이블의 클래스에 부모의 클래스 변수를 포함하고 @ManyToOne을 설정한다.
     * */
     @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.EAGER)
     private Board board;
 
     private String replyText;
