@@ -15,7 +15,7 @@ public class RootConfig {
                 .setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
-        // STRICT는 ReplyDTO <-> Reply 변환이 안됨
+        // MatchingStrategies.STRICT는 ReplyDTO <-> Reply 변환이 안됨
         // MatchingStrategies.LOOSE로 해야함
         
         return modelMapper;
