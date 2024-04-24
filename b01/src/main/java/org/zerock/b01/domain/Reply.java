@@ -43,8 +43,8 @@ Hibernate:
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-//@ToString(exclude = "board")    // board 필드만 제외하고 나머지 정보만 출력
+//@ToString
+@ToString(exclude = "board")    // board 필드만 제외하고 나머지 정보만 출력
 public class Reply extends BaseEntity{
 
     // PK, 주키, 식별자, Auto_increment(1씩 자동증가)
@@ -74,4 +74,8 @@ public class Reply extends BaseEntity{
     private String replyText;
 
     private String replyer;
+
+    public void changeText(String text){
+        this.replyText = text;
+    }
 }

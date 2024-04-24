@@ -14,8 +14,10 @@ public class RootConfig {
         modelMapper.getConfiguration()
                 .setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
-                .setMatchingStrategy(MatchingStrategies.STRICT);
-
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
+        // STRICT는 ReplyDTO <-> Reply 변환이 안됨
+        // MatchingStrategies.LOOSE로 해야함
+        
         return modelMapper;
     }
 }
