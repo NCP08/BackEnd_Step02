@@ -60,6 +60,23 @@ public class Board extends BaseEntity{
         this.title = title;
         this.content = content;
     }
+
+    public void addImage(String uuid, String fileName){
+        BoardImage boardImage = BoardImage.builder()
+                .uuid(uuid)
+                .fileName(fileName)
+                .board(this)
+                .ord(imageSet.size())
+                .build();
+
+        imageSet.add(boardImage);
+    }
+
+    public void clearImage(){
+        imageSet.forEach(boardImage -> boardImage.changeBoard(null));
+
+        this.imageSet.clear();
+    }
 }
 
 
