@@ -1,9 +1,6 @@
 package org.zerock.b01.service;
 
-import org.zerock.b01.dto.BoardDTO;
-import org.zerock.b01.dto.BoardListReplyCountDTO;
-import org.zerock.b01.dto.PageRequestDTO;
-import org.zerock.b01.dto.PageResponseDTO;
+import org.zerock.b01.dto.*;
 
 public interface BoardService {
 
@@ -14,4 +11,6 @@ public interface BoardService {
     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
 
     PageResponseDTO<BoardListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO);
+
+    PageResponseDTO<BoardListAllDTO> listWithAll(PageRequestDTO pageRequestDTO);
 }

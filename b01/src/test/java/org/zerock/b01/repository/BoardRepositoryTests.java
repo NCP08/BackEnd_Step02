@@ -10,8 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.zerock.b01.domain.Board;
+import org.zerock.b01.dto.BoardListAllDTO;
 import org.zerock.b01.dto.BoardListReplyCountDTO;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,9 @@ public class BoardRepositoryTests {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Test
     public void testInsert(){
@@ -212,6 +218,57 @@ public class BoardRepositoryTests {
         }
 
         boardRepository.save(board);
+    }
+
+    @Test
+    @Transactional
+    @Commit
+    public void testRemoveAll(){
+        Long bno = 1L;
+
+        // Reply -> Board로 연결되어 있으므로
+        // 직접 지워야 한다.
+        replyRepository.deleteByBoard_Bno(bno);
+
+        // Board <-> BoardImage 양방향 연결이고
+        // 아래 설정에 의해서 board의 row를 지우면
+        // 참조하는 자식 boardImage의 row도 삭제된다.
+        //CascadeType.ALL
+        //orphanRemoval = true
+        boardRepository.deleteById(bno);
+    }
+
+    @Test
+    public void testInserAll(){
+        for(int i=1;i<=100;i++){
+            Board board = Board.builder()
+                    .title("Title.." + i)
+                    .content("Content.." + i)
+                    .writer("writer.." + i)
+                    .build();
+
+            for(int j=0;i<3;j++){
+                if(i%5 == 0){
+                    continue;
+                }
+                board.addImage(UUID.randomUUID().toString(), i + "file" + j + ".jpg");
+            }
+            boardRepository.save(board);
+        }
+    }
+
+
+    @Transactional
+    @Test
+    public void testSearchImageReplyCount(){
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+
+        Page<BoardListAllDTO> result = boardRepository.searchWithAll(null, null, pageable);
+
+        log.info("----------------------");
+        log.info(result.getTotalElements());
+
+        result.getContent().forEach(boardListAllDTO -> log.info(boardListAllDTO));
     }
 }
 
