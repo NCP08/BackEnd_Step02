@@ -29,7 +29,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
       이것이 나온 이유는 각 DBMS마다 약간씩 SQL이 다르므로 JPA에서 사용하는 표준을 정해놓은 것.
 
     3) Querydsl
-      조건이 복잡할 때, 메서드 호출방식으로 개발자가 조합하지 익숙하도록 제공하는 방식
+      조건이 복잡할 때, 메서드 호출방식으로 개발자가 조합하기 익숙하도록 제공하는 방식
       제어문이 필요해서
       (ex. Oracle의 PL-SQL의 역할)
     * */

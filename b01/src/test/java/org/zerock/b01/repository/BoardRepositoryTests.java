@@ -182,7 +182,7 @@ public class BoardRepositoryTests {
                 .writer("tester")
                 .build();
 
-        for(int i=0;i<3;i++){
+        for(int i=0;i<12;i++){
             board.addImage(UUID.randomUUID().toString(), "file" + i + ".jpg");
         }
 

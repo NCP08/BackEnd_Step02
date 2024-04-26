@@ -9,6 +9,7 @@ import org.springframework.boot.convert.DataSizeUnit;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -29,4 +30,6 @@ public class BoardDTO {
 
     private LocalDateTime regDate;
     private LocalDateTime modDate;
+
+    private List<String> fileNames;
 }
