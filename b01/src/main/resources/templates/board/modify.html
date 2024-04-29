@@ -139,11 +139,14 @@
         formObj.action = `/board/modify?${link}`
 
         //첨부파일 추가
+        // 서버에 등록할 image들을 element로 만들어서 formObj에 추가
         appendFileData()
 
         //삭제대상 파일들의 삭제
+        // removeFileList에 등록한 삭제파일들 제거를 서버에 요청
         callRemoveFiles()
 
+        // 서버로 전송해서 DB에 등록 완료
         formObj.method ='post'
         formObj.submit()
 
@@ -231,8 +234,10 @@
 
         console.log(obj)
 
+        // 일단 바로 삭제하지 않고, removeFileList에 추가
         removeFileList.push({uuid,fileName})
 
+        // 화면상에서는 Image 제거
         const targetDiv = obj.closest(".card")
         targetDiv.remove()
     }

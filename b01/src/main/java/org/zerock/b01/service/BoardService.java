@@ -49,6 +49,7 @@ public interface BoardService {
         if(boardDTO.getFileNames() != null){
             boardDTO.getFileNames().forEach(fileName -> {
                 String[] arr = fileName.split("_");
+                // UUID와 originalFileName으로 분리
                 board.addImage(arr[0], arr[1]);
             });
         }

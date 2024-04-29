@@ -72,6 +72,7 @@
         </div>
         <div class="modal-body">
           <div class="input-group mb-3">
+<!--            파일 선택-->
             <input type="file" name="files" class="form-control" multiple >
           </div>
         </div>
@@ -131,10 +132,12 @@
     }
 
 
+    // 파일 비동기 통신으로 전송 후 결과
     uploadToServer(formObj).then(result => {
       console.log(result)
       //console.log(result)
       for (const uploadResult of result) {
+        // 전송할 파일 목록과 경로를 얻어서 화면에 보여줌
         showUploadFile(uploadResult)
       }
       uploadModal.hide()
@@ -171,33 +174,66 @@
 
     const targetDiv = obj.closest(".card")
 
+    // 서버에 삭제 요청이 성공하면
     removeFileToServer(uuid, fileName).then(data => {
+      // 화면상에 보이는 이미지 div영역도 삭제하라
       targetDiv.remove()
     })
   }
 
+  /* Title, Content, Writer는 기본으로 보낸다.
+     추가해서 Image목록을 보내야 DB에 등록한다.
+  * */
   document.querySelector(".submitBtn").addEventListener("click", function(e){
 
-    e.preventDefault()
-    e.stopPropagation()
+    e.preventDefault()  // html이 정해놓은 submit의 기본동작을 하지 않도록 한다.(왜냐하면 직접 보낼거니까)
+    e.stopPropagation() // 이벤트 버블링 중지(왜냐하면 이미 여기서 처리했으니까)
 
     const target = document.querySelector(".uploadHidden")
 
+    // 이미지 요소들을 모두 리스트로 가져와라
     const uploadFiles = uploadResult.querySelectorAll("img")
 
     let str = ''
 
+    // 모든 추가된 이미지 요소를 접근해서
     for (let i = 0; i < uploadFiles.length ; i++) {
       const uploadFile = uploadFiles[i]
+
+      // 사용자 정의 속성인 data-src 속성의 값을 가져와라(여기에는 파일정보가 들어있다)
       const imgLink = uploadFile.getAttribute("data-src")
 
+      // 서버로 submit하기 전에 함께 보내기 위해서 추가한다.
       str += `<input type='hidden' name='fileNames' value="${imgLink}">`
     }
 
+    /*   <form action="/board/register" method="post">
+              .....
+              <input type="text" name="title" class="form-control" placeholder="Title">
+              .....
+              <textarea class="form-control col-sm-5" rows="5" name="content"></textarea>
+              .....
+              <input type="text" name="writer" class="form-control" placeholder="Writer">
+              .....
+           <div class="float-end uploadHidden">
+             <button type="button" class="btn btn-primary uploadFileBtn">ADD Files</button>
+             <input type='hidden' name='fileNames' value="${imgLink}">
+             <input type='hidden' name='fileNames' value="${imgLink}">
+             <input type='hidden' name='fileNames' value="${imgLink}">
+             <input type='hidden' name='fileNames' value="${imgLink}">
+             <input type='hidden' name='fileNames' value="${imgLink}">
+              .....
+           </div>
+        </form>
+
+    * */
     target.innerHTML = str;
 
     const formObj = document.querySelector("form");
 
+    /*
+    title, content, writer, filenames(복수)가 /board/register로 post로 전송
+    * */
     formObj.submit();
     formObj.reset();
 
